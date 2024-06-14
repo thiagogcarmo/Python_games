@@ -1,0 +1,50 @@
+import requests
+import random
+
+class Personagem:
+    def __init__(self, nome, idade, genero, estado_espirito, animo, saude):
+        self.nome = nome
+        self.idade = idade
+        self.genero = genero
+        self.estado_espirito = estado_espirito
+        self.animo = animo
+        self.saude = saude
+
+    def __repr__(self):
+        return (f'Personagem(nome={self.nome}, idade={self.idade}, genero={self.genero}, '
+                f'estado_espirito={self.estado_espirito}, animo={self.animo}, saude={self.saude})')
+
+def gerar_nome_aleatorio():
+    response = requests.get('https://randomuser.me/api/')
+    data = response.json()
+    nome = data['results'][0]['name']['first'] + ' ' + data['results'][0]['name']['last']
+    return nome
+
+def gerar_genero_aleatorio():
+    return random.choice(['Masculino', 'Feminino', 'Outro'])
+
+def gerar_estado_espirito_aleatorio():
+    return random.choice(['Feliz', 'Triste', 'Neutro', 'Raivoso', 'Animado', 'Cansado'])
+
+def gerar_animo_aleatorio():
+    return random.choice(['Alto', 'Médio', 'Baixo'])
+
+def gerar_saude_aleatoria():
+    return random.choice(['Ótima', 'Boa', 'Regular', 'Ruim', 'Péssima'])
+
+def gerar_idade_aleatoria():
+    return random.randint(10, 90)
+
+def criar_personagem():
+    nome = gerar_nome_aleatorio()
+    idade = gerar_idade_aleatoria()
+    genero = gerar_genero_aleatorio()
+    estado_espirito = gerar_estado_espirito_aleatorio()
+    animo = gerar_animo_aleatorio()
+    saude = gerar_saude_aleatoria()
+    
+    return Personagem(nome, idade, genero, estado_espirito, animo, saude)
+
+# Testando a função
+personagem = criar_personagem()
+print(personagem)
